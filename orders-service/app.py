@@ -83,7 +83,7 @@ class OrdersApi(Resource):
         complete = (complete in ['true', 'True'])
 
         if complete is None or not complete:
-            return {'error': 'a property \'complete\' is required, and must be of value True'}, 500
+            return {'error': 'a property \'complete\' is required, and must be of value True'}, 400
 
         try:
             orders_table.update_item(
@@ -129,13 +129,13 @@ class AllOrders(Resource):
         order_id = uuid.uuid4().hex
 
         if customer is None:
-            return {'error': 'customer is a required property for this put.'}, 500
+            return {'error': 'customer is a required property for this put.'}, 400
         if vendor is None:
-            return {'error': 'vendor is a required property for this put.'}, 500
+            return {'error': 'vendor is a required property for this put.'}, 400
         if items is None:
-            return {'error': 'items is a required property for this put.'}, 500
+            return {'error': 'items is a required property for this put.'}, 400
         elif not isinstance(items, list):
-            return {'error': 'items must be a list of strings'}, 500
+            return {'error': 'items must be a list of strings'}, 400
 
         try:
             orders_table.put_item(Item={
